@@ -58,22 +58,58 @@
     <el-dialog
       v-model="dialogVisible"
       :title="selectedClub?.name"
-      width="520px"
+      width="720px"
       destroy-on-close
     >
       <template v-if="selectedClub">
         <div class="detail-cover" :style="getCoverStyle(selectedClub)" />
         <p class="detail-desc">{{ selectedClub.description }}</p>
+
+        <div v-if="selectedClub.detail" class="detail-long">
+          {{ selectedClub.detail }}
+        </div>
+
         <div class="detail-info">
-          <div><strong>类别：</strong>{{ selectedClub.category }}</div>
-          <div><strong>成员：</strong>{{ selectedClub.members }} 人</div>
-          <div><strong>成立：</strong>{{ selectedClub.founded }} 年</div>
-          <div><strong>联系：</strong>{{ selectedClub.contact }}</div>
+          <div><strong>类别:</strong>{{ selectedClub.category }}</div>
+          <div><strong>成员:</strong>{{ selectedClub.members }} 人</div>
+          <div><strong>成立:</strong>{{ selectedClub.founded }} 年</div>
+          <div><strong>联系:</strong>{{ selectedClub.contact }}</div>
         </div>
         <div class="club-tags" style="margin-top: 12px;">
           <span v-for="tag in selectedClub.tags" :key="tag" class="tag">{{ tag }}</span>
         </div>
+
+        <!-- 图片画廊 -->
+        <div v-if="selectedClub.gallery?.length" class="detail-section">
+          <h4 class="detail-section-title">图片</h4>
+          <div class="gallery-grid">
+            <img
+              v-for="(img, i) in selectedClub.gallery"
+              :key="i"
+              :src="img"
+              class="gallery-img"
+              @click="previewImg = img"
+            />
+          </div>
+        </div>
+
+        <!-- 视频 -->
+        <div v-if="selectedClub.videos?.length" class="detail-section">
+          <h4 class="detail-section-title">视频</h4>
+          <video
+            v-for="(v, i) in selectedClub.videos"
+            :key="i"
+            :src="v"
+            controls
+            class="detail-video"
+          />
+        </div>
       </template>
+    </el-dialog>
+
+    <!-- 图片大图预览 -->
+    <el-dialog v-model="imgPreviewVisible" width="80%" :show-close="true">
+      <img v-if="previewImg" :src="previewImg" style="width: 100%;" />
     </el-dialog>
   </div>
 </template>
@@ -81,12 +117,32 @@
 <script setup>
 import { ref, computed } from 'vue'
 import NavBar from '@/components/common/NavBar.vue'
-import clubsData from '@/data/clubs.json'
+import defaultClubs from '@/data/clubs.json'
 
-const clubs = ref(clubsData)
+const STORAGE_KEY = 'ct_clubs_data'
+
+function loadClubs() {
+  const raw = localStorage.getItem(STORAGE_KEY)
+  if (raw) {
+    try {
+      const parsed = JSON.parse(raw)
+      if (Array.isArray(parsed) && parsed.length) return parsed
+    } catch {
+      /* ignore */
+    }
+  }
+  return defaultClubs
+}
+
+const clubs = ref(loadClubs())
 const activeCategory = ref('全部')
 const dialogVisible = ref(false)
 const selectedClub = ref(null)
+const previewImg = ref('')
+const imgPreviewVisible = computed({
+  get: () => !!previewImg.value,
+  set: (v) => { if (!v) previewImg.value = '' },
+})
 
 // 从数据中提取所有分类
 const categories = computed(() => {
@@ -115,7 +171,14 @@ const gradientPalette = [
   ['#f87171', '#fbbf24'],
 ]
 function getCoverStyle(club) {
-  const idx = (club.id - 1) % gradientPalette.length
+  if (club.cover && (club.cover.startsWith('data:') || club.cover.startsWith('http'))) {
+    return {
+      backgroundImage: `url(${club.cover})`,
+      backgroundSize: 'cover',
+      backgroundPosition: 'center',
+    }
+  }
+  const idx = ((club.id || 1) - 1) % gradientPalette.length
   const [c1, c2] = gradientPalette[idx]
   return { background: `linear-gradient(135deg, ${c1}, ${c2})` }
 }
@@ -255,4 +318,44 @@ function getCoverStyle(club) {
   font-size: 13px;
 }
 .detail-info strong { color: var(--color-text-primary); }
+
+.detail-long {
+  color: var(--color-text-secondary);
+  line-height: 1.8;
+  white-space: pre-wrap;
+  margin-bottom: var(--spacing-md);
+  padding: var(--spacing-md);
+  background: var(--glass-bg-strong);
+  border-radius: var(--radius-md);
+  font-size: 13px;
+}
+
+.detail-section {
+  margin-top: var(--spacing-lg);
+}
+.detail-section-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  margin-bottom: var(--spacing-sm);
+}
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: var(--spacing-sm);
+}
+.gallery-img {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: var(--radius-sm);
+  cursor: zoom-in;
+  transition: transform var(--transition-fast);
+}
+.gallery-img:hover { transform: scale(1.04); }
+.detail-video {
+  width: 100%;
+  border-radius: var(--radius-sm);
+  margin-bottom: var(--spacing-sm);
+}
 </style>
