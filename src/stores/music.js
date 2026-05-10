@@ -8,9 +8,12 @@ import { ref, computed } from 'vue'
 export const useMusicStore = defineStore('music', () => {
   // ── State ──────────────────────────────────────────────
   const playlist = ref([
-    { id: 1, title: '校园晨风', artist: '未知', src: '/music/track1.mp3' },
-    { id: 2, title: '青春时光', artist: '未知', src: '/music/track2.mp3' },
-    { id: 3, title: '漫步校园', artist: '未知', src: '/music/track3.mp3' },
+    {
+      id: 1,
+      title: '福州三中校歌',
+      artist: '福州第三中学',
+      src: `${import.meta.env.BASE_URL}music/${encodeURIComponent('福州三中校歌')}.mp3`,
+    },
   ])
 
   const currentIndex = ref(0)
