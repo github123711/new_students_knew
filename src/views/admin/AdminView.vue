@@ -8,6 +8,18 @@
         <p>云游三中数据总览</p>
       </header>
 
+      <!-- 管理菜单 -->
+      <div class="admin-menu glass-card">
+        <h3 class="chart-title">管理菜单</h3>
+        <div class="menu-grid">
+          <RouterLink to="/admin/content" class="menu-tile">
+            <div class="menu-icon">📝</div>
+            <div class="menu-name">内容管理</div>
+            <div class="menu-desc">编辑社团信息、上传图片/视频</div>
+          </RouterLink>
+        </div>
+      </div>
+
       <!-- 统计卡片 -->
       <div class="stat-grid">
         <div v-for="stat in stats" :key="stat.label" class="stat-card glass-card">
@@ -58,6 +70,7 @@
 <script setup>
 import { ref, reactive, onMounted, nextTick } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
+import { RouterLink } from 'vue-router'
 import NavBar from '@/components/common/NavBar.vue'
 import { apiGetAdminStats } from '@/api/resources'
 import { clearAllCache } from '@/utils/cache'
@@ -297,4 +310,28 @@ async function confirmReset() {
 
 /* 操作按钮 */
 .action-buttons { display: flex; gap: var(--spacing-md); flex-wrap: wrap; }
+
+/* 管理菜单 */
+.admin-menu { padding: var(--spacing-xl); }
+.menu-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: var(--spacing-md);
+}
+.menu-tile {
+  padding: var(--spacing-lg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  background: var(--glass-bg-strong);
+  text-decoration: none;
+  color: var(--color-text-primary);
+  transition: transform var(--transition-fast), border-color var(--transition-fast);
+}
+.menu-tile:hover {
+  transform: translateY(-2px);
+  border-color: var(--color-primary);
+}
+.menu-icon { font-size: 28px; margin-bottom: var(--spacing-sm); }
+.menu-name { font-size: 16px; font-weight: 700; margin-bottom: 4px; }
+.menu-desc { font-size: 12px; color: var(--color-text-muted); }
 </style>
