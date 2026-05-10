@@ -1,1 +1,93 @@
-[]
+[
+  {
+    "id": 100,
+    "name": "滚食社",
+    "category": "美食",
+    "cover": "/images/clubs/gunshi/1.jpg",
+    "description": "探索校园周边美食，分享美味发现，每周组织品鉴活动。",
+    "detail": "滚食社是福州三中以美食探索为主题的学生社团。社员们一起寻访福州地道小吃、记录校园食堂特色菜、研究家乡风味。每周活动包括美食分享会、烹饪体验、街边小吃打卡等。",
+    "members": 30,
+    "founded": "2024",
+    "tags": ["美食", "探店", "分享"],
+    "contact": "gunshi@school.edu.cn",
+    "gallery": [
+      "/images/clubs/gunshi/1.jpg",
+      "/images/clubs/gunshi/2.jpg",
+      "/images/clubs/gunshi/3.jpg",
+      "/images/clubs/gunshi/4.jpg",
+      "/images/clubs/gunshi/5.jpg",
+      "/images/clubs/gunshi/6.jpg",
+      "/images/clubs/gunshi/7.jpg",
+      "/images/clubs/gunshi/8.jpg",
+      "/images/clubs/gunshi/9.jpg",
+      "/images/clubs/gunshi/10.jpg"
+    ],
+    "videos": []
+  },
+  {
+    "id": 1,
+    "name": "机器人社",
+    "category": "科技",
+    "cover": "/images/clubs/robotics.jpg",
+    "description": "专注于机器人设计与编程，每年参加全国青少年机器人大赛，多次斩获省级以上奖项。",
+    "members": 48,
+    "founded": "2015",
+    "tags": ["Arduino", "Python", "机械设计"],
+    "contact": "robot@school.edu.cn"
+  },
+  {
+    "id": 2,
+    "name": "文学社",
+    "category": "文艺",
+    "cover": "/images/clubs/literature.jpg",
+    "description": "定期举办诗歌朗诵、读书分享、创意写作等活动，出版校园文学刊物《晨曦》。",
+    "members": 65,
+    "founded": "2008",
+    "tags": ["写作", "诗歌", "阅读"],
+    "contact": "lit@school.edu.cn"
+  },
+  {
+    "id": 3,
+    "name": "篮球社",
+    "category": "体育",
+    "cover": "/images/clubs/basketball.jpg",
+    "description": "校内最活跃的体育社团之一，每周组织训练与友谊赛，培养团队协作精神。",
+    "members": 52,
+    "founded": "2010",
+    "tags": ["篮球", "团队", "竞技"],
+    "contact": "basketball@school.edu.cn"
+  },
+  {
+    "id": 4,
+    "name": "摄影社",
+    "category": "艺术",
+    "cover": "/images/clubs/photography.jpg",
+    "description": "记录校园美好瞬间，定期举办摄影展，学员作品曾被多家媒体转载报道。",
+    "members": 39,
+    "founded": "2012",
+    "tags": ["摄影", "后期", "构图"],
+    "contact": "photo@school.edu.cn"
+  },
+  {
+    "id": 5,
+    "name": "编程社",
+    "category": "科技",
+    "cover": "/images/clubs/coding.jpg",
+    "description": "从零开始学编程，涵盖网页开发、算法竞赛、人工智能入门等方向，氛围友好。",
+    "members": 43,
+    "founded": "2018",
+    "tags": ["JavaScript", "Python", "算法"],
+    "contact": "code@school.edu.cn"
+  },
+  {
+    "id": 6,
+    "name": "话剧社",
+    "category": "文艺",
+    "cover": "/images/clubs/drama.jpg",
+    "description": "每学期排演经典话剧，培养表演、台词、舞台设计等综合能力，年度公演场场爆满。",
+    "members": 57,
+    "founded": "2009",
+    "tags": ["表演", "编剧", "舞台"],
+    "contact": "drama@school.edu.cn"
+  }
+]
