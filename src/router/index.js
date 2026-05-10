@@ -44,6 +44,12 @@ const routes = [
     component: () => import('@/views/admin/AdminView.vue'),
     meta: { title: '管理后台 · 云游三中', requiresAuth: true, requiresAdmin: true },
   },
+  {
+    path: '/admin/content',
+    name: 'AdminContent',
+    component: () => import('@/views/admin/ContentManageView.vue'),
+    meta: { title: '内容管理 · 云游三中', requiresAuth: true, requiresAdmin: true },
+  },
   // 404 兜底路由
   {
     path: '/:pathMatch(.*)*',
